@@ -1,0 +1,87 @@
+% Preview source code from paragraph 0 to 26
+
+
+\title{Document Summarizer}
+
+\author{Akshat Choube\thanks{111501031,CSE IIT PKD}, Adrian McDonald Tariang\thanks{111501001, CSE IIT PKD},
+Harsh Yadav\thanks{111501009, CSE IIT PKD}}
+\maketitle
+\begin{abstract}
+The Report describes a Document Summarizer Mini-Project as part of
+Paradigms of Programming(CS 3100) for Academic Session Aug 2017 to
+Nov 2017. 
+\end{abstract}
+
+\section{Introduction }
+
+A Document Summarizer is a tool which for a given input text file
+generates a output containing a list of sentences which better describes
+our original file. We began with eliminating unimportant words (such
+as stop words and punctuation ). We then calculate the term frequency
+of every important word (\{words\}\textbackslash{}\{unimportant words\}),
+and vectorize our sentences. We then cluster similar sentences together.
+In the process, we ignore the sentences which have nearly zero or
+near complete similarity. This is done to not let outliers affect
+our clustering. We then choose the sentences that describe the cluster
+best. An ordered collection of these sentences will be our summary
+of the input file.(detailed explanation is given in algorithm section)
+
+\section{Algorithm}
+\begin{enumerate}
+\item Read the input file. 
+\item Using nltk, tokenize document into sentences.
+\item For each sentence in the document :
+\item Tokenize the sentence into words. 
+\item Filter out unimportant words.
+\item Calculate number of unique important words (Say n).
+\item Create an n-dimensional vector such that if sentence contains n-th
+unique word, then the n-th entry of the vector = frequency of unique
+word in the file. 
+\item Use k-means clustering to cluster vectors lying close in the n-dimensional
+vector space to be together. 
+\item For each cluster :
+\item Choose the sentences which best relate with other sentences in the
+same cluster. This is done in the following manner :
+\item Define a score which quantifies how close two sentences are in terms
+of the important words. 
+\item If the score doesn\textquoteright t lie between the lower and upper
+bound (ie. 20\% to 90\% similarity), ignore the score. 
+\item Else, return the score.
+\item Overall score of a sentence is the sum of all scores computed by comparing
+this sentence with all other sentences of the cluster.
+\item Sentences with higher overall score than the others are chosen as
+the summary of the cluster
+\item Summary of the document is the summary of all clusters in order of
+occurrence in the input file.
+\end{enumerate}
+
+\section{Contribution and Timeline}
+
+After taking up the project, we started off by discussing the algorithms
+to implement summarization. Primarily, we agreed to work in parallel
+on three different algorithms, and eventually take up the one that
+performed the best amongst them. While Harsh Yadav took the approach
+of assigning important words weights according to their length, and
+choosing the highest weighted sentence. Adrian McDonald Tariang took
+up Term Frequency Inverse Document Frequency (TFIDF) approach. Akshat
+Choube came up with the idea of computing scores for each sentence,
+based on its similarity with other sentences in the document. Each
+approach gave us a better idea, which led us to the final algorithm.
+
+After the Interim Progress Evaluation, based on suggestions by Prof.
+Mrinal Das, made us implement clustering to cluster similar sentences
+and choosing the ones that best describe the cluster. This ensures
+that the sentences which are dissimilar to other sentences, but are
+important are also considered.
+
+The algorithm suggested by Akshat seemed to be working better than
+the rest, which motivated us to carry forward with his algorithm.
+However, we were yet to include clustering in the code. Harsh came
+up with the idea to vectorize sentences and apply k-means clustering,
+while Akshat implemented the same. The testing was performed by Adrian
+who reported bugs and fixed them. Some of these include: the output
+sentences weren\textquoteright t in order. Furthermore, he suggested
+to include term frequency while vectorization.
+
+Conclusively, the submitted project had efforts pitched in by all
+the team members, who eventually made it possible.
